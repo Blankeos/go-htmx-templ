@@ -40,3 +40,21 @@ watch:
 	fi
 
 .PHONY: all build run test clean
+
+# Database management
+migrate-status: 
+	@goose -dir migrations sqlite ./test.db status
+
+migrate-up:
+	@goose -dir migrations sqlite ./test.db up
+
+migrate-down:
+	@goose -dir migrations sqlite ./test.db down
+
+migrate-create:
+	@if [ -n "$(N)" ]; then \
+		goose -dir migrations sqlite "" create $(N) sql; \
+	else \
+		echo "Incorrect usage."; \
+		echo "Usage: make migrate-create N=<migration_name>"; \
+	fi;

@@ -1,17 +1,19 @@
 package web
 
-templ HelloForm() {
+templ HelloForm(count string) {
 	@Base() {
 		<form hx-post="/hello" method="POST" hx-target="#hello-container">
 			<input id="name" name="name" type="text"/>
 			<button type="submit">Submit</button>
 		</form>
 		<div id="hello-container"></div>
-
 		<form hx-post="/increment" method="POST" hx-target="#count-result">
-			<button type="submit">Increment</button>
+			<input id="" name="count" value={ count }/>
+			<button>
+				<div id="count-result">Count { count }</div>
+				Increment
+			</button>
 		</form>
-		<div id="count-result"></div>
 	}
 }
 
