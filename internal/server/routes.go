@@ -3,10 +3,11 @@ package server
 import (
 	"net/http"
 
+	"htmx/cmd/web"
+
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"htmx/cmd/web"
 )
 
 func (s *Server) RegisterRoutes() http.Handler {
@@ -18,6 +19,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	e.GET("/web", echo.WrapHandler(templ.Handler(web.HelloForm())))
 	e.POST("/hello", echo.WrapHandler(http.HandlerFunc(web.HelloWebHandler)))
+	e.POST("/increment", echo.WrapHandler(http.HandlerFunc(web.HelloWebIncrementHandler)))
 
 	e.GET("/", s.HelloWorldHandler)
 
