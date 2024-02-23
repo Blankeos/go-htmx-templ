@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	println("HELLO WORL.")
+	println("CARL!")
 	server := server.NewServer()
 
 	err := server.ListenAndServe()

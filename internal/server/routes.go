@@ -11,7 +11,7 @@ import (
 
 func (s *Server) RegisterRoutes() http.Handler {
 	e := echo.New()
-	e.Use(middleware.Logger())
+	// e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	fileServer := http.FileServer(http.FS(web.Files))
 	e.GET("/js/*", echo.WrapHandler(fileServer))

@@ -6,7 +6,15 @@ all: build
 build:
 	@echo "Building..."
 	@templ generate
-	@go build -o main cmd/api/main.go
+	@if [ "$(WATCHING)" = "true" ]; then \
+		if [ $$(go env GOHOSTOS) = "windows" ]; then \
+			go build -o tmp/main.exe cmd/api/main.go; \
+		else \
+			go build -o tmp/main cmd/api/main.go; \
+		fi; \
+	else \
+		go build -o . cmd/api/main.go; \
+	fi
 
 # Run the application
 run:
@@ -25,6 +33,7 @@ clean:
 # Live Reload
 watch:
 	@if command -v air > /dev/null; then \
+		export WATCHING="true"; \
 	    air; \
 	    echo "Watching...";\
 	else \

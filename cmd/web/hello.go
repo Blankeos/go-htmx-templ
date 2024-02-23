@@ -12,6 +12,7 @@ func WebHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func HelloWebHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("/Hello Web Handler.")
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
@@ -23,6 +24,7 @@ func HelloWebHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func IncrementWebHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("/Increment Web Handler.")
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, "Bad Request", http.StatusBadRequest)

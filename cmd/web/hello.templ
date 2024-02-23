@@ -1,5 +1,13 @@
 package web
 
+templ CountResult(newCount string) {
+	<input id="" name="count" value={ newCount }/>
+	<span>New Count: { newCount }</span>
+	<button type="submit">
+		Increment
+	</button>
+}
+
 templ HelloForm(count string) {
 	@Base() {
 		<form hx-post="/hello" method="POST" hx-target="#hello-container">
@@ -7,20 +15,12 @@ templ HelloForm(count string) {
 			<button type="submit">Submit</button>
 		</form>
 		<div id="hello-container"></div>
-		<form hx-post="/increment" method="POST" hx-target="#count-result">
-			<input id="" name="count" value={ count }/>
-			<button>
-				<div id="count-result">Count { count }</div>
-				Increment
-			</button>
+		<form hx-post="/increment" method="POST">
+			@CountResult(count)
 		</form>
 	}
 }
 
 templ HelloPost(name string) {
 	<div>Hello, { name }</div>
-}
-
-templ CountResult(newCount string) {
-	<div>Count: { newCount }</div>
 }
