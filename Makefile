@@ -31,7 +31,7 @@ clean:
 	@rm -f main
 
 # Live Reload
-watch:
+dev:
 	@if command -v air > /dev/null; then \
 		export WATCHING="true"; \
 	    air; \

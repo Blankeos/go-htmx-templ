@@ -1,21 +1,36 @@
 package web
 
-templ CountResult(newCount string) {
-	<input id="" name="count" value={ newCount }/>
-	<span>New Count: { newCount }</span>
-	<button type="submit">
-		Increment
-	</button>
-}
-
 templ HelloForm(count string) {
 	@Base() {
+		<style>
+			@keyframes spin {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+			.htmx-indicator{
+				opacity:0;
+				animation: spin 1s linear infinite;
+				transition: opacity 200ms ease-in;
+			}
+
+			.htmx-request .htmx-indicator{
+				opacity:1;
+			}
+			.htmx-request.htmx-indicator{
+				opacity:1;
+			}
+			
+		</style>
 		<form hx-post="/hello" method="POST" hx-target="#hello-container">
 			<input id="name" name="name" type="text"/>
 			<button type="submit">Submit</button>
 		</form>
 		<div id="hello-container"></div>
-		<form hx-post="/increment" method="POST">
+		<form hx-post="/increment" method="POST" hx-indicator="#spinner" hx-disabled-elt="#count-btn">
 			@CountResult(count)
 		</form>
 	}
@@ -23,4 +38,13 @@ templ HelloForm(count string) {
 
 templ HelloPost(name string) {
 	<div>Hello, { name }</div>
+}
+
+templ CountResult(newCount string) {
+	<input id="" name="count" value={ newCount }/>
+	<span>New Count: { newCount }</span>
+	<button type="submit" id="count-btn">
+		<span>Increment</span>
+		<span id="spinner" class="htmx-indicator">🔁</span>
+	</button>
 }
